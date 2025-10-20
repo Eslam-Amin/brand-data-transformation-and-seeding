@@ -1,0 +1,27 @@
+{
+  "name": "brand-data-transformation-and-seeding",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "brands:transform": "node --loader ts-node/esm ./src/transform.ts",
+    "brands:seed": "node --loader ts-node/esm ./src/seed-brands.ts"
+  },
+  "keywords": [],
+  "author": "ESlam Amin",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@faker-js/faker": "^10.1.0",
+    "@types/mongoose": "^5.11.96",
+    "faker": "^6.6.6",
+    "mongoose": "^8.19.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.8.1"
+  }
+}
