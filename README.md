@@ -82,7 +82,7 @@ The Brand model includes the following fields:
 ## Project Structure
 
 ```
-├── brands.json           # Sample brand data in JSON format
+├── brands.json           # New Brands docs after tranfroming and seeding as json file
 ├── seeded-brands.xlsx    # Generated Excel file with seeded data
 ├── src/
 │   ├── db.ts             # Database connection configuration
