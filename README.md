@@ -86,7 +86,7 @@ src/
 ├── db.ts                 # Database connection configuration
 ├── models/
 │   └── brands-schema.ts  # Mongoose brand schema definition
-├── transform.ts          # Data transformation script
+├── transform-brands.ts          # Data transformation script
 └── seed-brands.ts       # Data seeding script
 ```
 
