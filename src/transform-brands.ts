@@ -11,6 +11,13 @@ const FIELDS_TO_BE_REMOVED = {
   hqAddress: 1
 };
 
+const getBrandName = (doc: any): string | void => {
+  if (doc.brandName) return doc.brandName;
+  if (doc.brand?.name) return doc.brand.name;
+  if (typeof doc.brand === "string" && doc.brand.trim() !== "")
+    return doc.brand;
+};
+
 const transformBrands = async () => {
   await connectDB();
 
@@ -21,11 +28,7 @@ const transformBrands = async () => {
     const updatedFields: any = {};
     let year = doc.yearFounded;
 
-    if (!doc.brandName) {
-      if (doc.brand?.name) updatedFields.brandName = doc.brand.name;
-      else if (typeof doc.brand === "string" && doc.brand.trim() !== "")
-        updatedFields.brandName = doc.brand;
-    }
+    updatedFields.brandName = getBrandName(doc);
 
     if (!doc.headquarters && doc.hqAddress)
       updatedFields.headquarters = doc.hqAddress;
