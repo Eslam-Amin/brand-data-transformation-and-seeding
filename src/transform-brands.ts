@@ -25,9 +25,8 @@ const getHeadquarters = (doc: any): string | void => {
 
 const getNumberOfLocations = (doc: any): number => {
   const locations = doc.numberOfLocations;
-  if (typeof locations === "number" && !isNaN(locations)) {
-    return locations;
-  }
+  if (typeof locations === "number" && !isNaN(locations)) return locations;
+
   const parsedLocationsNumber = Number(locations);
 
   return isNaN(parsedLocationsNumber) ? MIN_LOCATIONS : parsedLocationsNumber;
