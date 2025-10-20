@@ -1,6 +1,9 @@
 import { connectDB } from "./db.js";
 import { Brand } from "./models/brands-schema.js";
 
+const MIN_YEAR = 1600;
+const MIN_LOCATIONS = 1;
+
 const transformBrands = async () => {
   await connectDB();
 
