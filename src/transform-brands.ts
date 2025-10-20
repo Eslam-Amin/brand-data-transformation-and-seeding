@@ -32,6 +32,22 @@ const transformBrands = async () => {
         : parsedLocationsNumber;
     } else updatedFields.numberOfLocations = locations;
 
+    if (typeof year !== "number" || isNaN(year)) {
+      if (
+        typeof doc.yearCreated === "string" &&
+        !isNaN(Number(doc.yearCreated))
+      )
+        year = Number(doc.yearCreated);
+      else if (typeof doc.yearCreated === "number") year = doc.yearCreated;
+      else if (
+        typeof doc.yearsFounded === "string" &&
+        !isNaN(Number(doc.yearsFounded))
+      )
+        year = Number(doc.yearsFounded);
+      else year = MIN_YEAR;
+    }
+    updatedFields.yearFounded = year;
+
     try {
       const result = await Brand.updateOne(
         { _id: doc._id },
