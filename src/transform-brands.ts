@@ -24,6 +24,14 @@ const transformBrands = async () => {
       updatedFields.headquarters = doc.hqAddress;
     else updatedFields.headquarters = doc.headquarters;
 
+    let locations = doc.numberOfLocations;
+    if (typeof locations !== "number" || isNaN(locations)) {
+      const parsedLocationsNumber = Number(locations);
+      updatedFields.numberOfLocations = isNaN(parsedLocationsNumber)
+        ? MIN_LOCATIONS
+        : parsedLocationsNumber;
+    } else updatedFields.numberOfLocations = locations;
+
     try {
       const result = await Brand.updateOne(
         { _id: doc._id },
