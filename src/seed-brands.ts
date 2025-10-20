@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { connectDB } from "./db.js";
 import { Brand } from "./models/brands-schema.js";
+import XLSX from "xlsx";
 
 const seedBrands = async () => {
   await connectDB();
@@ -16,6 +17,13 @@ const seedBrands = async () => {
 
   console.log("Seeded 10 new brands.");
 
+  // Document seed data in Excel
+  const ws = XLSX.utils.json_to_sheet(newBrands);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "SeededBrandsSheet");
+  XLSX.writeFile(wb, "seeded-brands.xlsx");
+
+  console.log("Documented in seeded-brands.xlsx");
   process.exit();
 };
 
