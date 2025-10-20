@@ -23,6 +23,16 @@ const getHeadquarters = (doc: any): string | void => {
   if (doc.hqAddress) return doc.hqAddress;
 };
 
+const getNumberOfLocations = (doc: any): number => {
+  const locations = doc.numberOfLocations;
+  if (typeof locations === "number" && !isNaN(locations)) {
+    return locations;
+  }
+  const parsedLocationsNumber = Number(locations);
+
+  return isNaN(parsedLocationsNumber) ? MIN_LOCATIONS : parsedLocationsNumber;
+};
+
 const transformBrands = async () => {
   await connectDB();
 
@@ -31,35 +41,10 @@ const transformBrands = async () => {
   for (const brand of brands) {
     const doc = brand.toObject() as any;
     const updatedFields: any = {};
-    let year = doc.yearFounded;
 
     updatedFields.brandName = getBrandName(doc);
-
     updatedFields.headquarters = getHeadquarters(doc);
-
-    let locations = doc.numberOfLocations;
-    if (typeof locations !== "number" || isNaN(locations)) {
-      const parsedLocationsNumber = Number(locations);
-      updatedFields.numberOfLocations = isNaN(parsedLocationsNumber)
-        ? MIN_LOCATIONS
-        : parsedLocationsNumber;
-    } else updatedFields.numberOfLocations = locations;
-
-    if (typeof year !== "number" || isNaN(year)) {
-      if (
-        typeof doc.yearCreated === "string" &&
-        !isNaN(Number(doc.yearCreated))
-      )
-        year = Number(doc.yearCreated);
-      else if (typeof doc.yearCreated === "number") year = doc.yearCreated;
-      else if (
-        typeof doc.yearsFounded === "string" &&
-        !isNaN(Number(doc.yearsFounded))
-      )
-        year = Number(doc.yearsFounded);
-      else year = MIN_YEAR;
-    }
-    updatedFields.yearFounded = year;
+    updatedFields.numberOfLocations = getNumberOfLocations(doc);
 
     try {
       const result = await Brand.updateOne(
