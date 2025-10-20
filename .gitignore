@@ -148,9 +148,6 @@ jspm_packages/
 ehthumbs.db
 Thumbs.db
 
-# Generated files
-seeded-brands.xlsx
-*.xlsx
 
 # Build outputs
 dist/
