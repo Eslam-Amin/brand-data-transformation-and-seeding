@@ -4,6 +4,13 @@ import { Brand } from "./models/brands-schema.js";
 const MIN_YEAR = 1600;
 const MIN_LOCATIONS = 1;
 
+const FIELDS_TO_BE_REMOVED = {
+  yearCreated: 1,
+  yearsFounded: 1,
+  brand: 1,
+  hqAddress: 1
+};
+
 const transformBrands = async () => {
   await connectDB();
 
@@ -53,12 +60,7 @@ const transformBrands = async () => {
         { _id: doc._id },
         {
           $set: updatedFields,
-          $unset: {
-            yearCreated: 1,
-            yearsFounded: 1,
-            brand: 1,
-            hqAddress: 1
-          }
+          $unset: FIELDS_TO_BE_REMOVED
         },
         { strict: false }
       );
