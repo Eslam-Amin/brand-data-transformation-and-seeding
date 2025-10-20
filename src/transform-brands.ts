@@ -32,6 +32,22 @@ const getNumberOfLocations = (doc: any): number => {
   return isNaN(parsedLocationsNumber) ? MIN_LOCATIONS : parsedLocationsNumber;
 };
 
+const getYearFounded = (doc: any): number => {
+  if (typeof doc.yearFounded === "number" && !isNaN(doc.yearFounded))
+    return doc.yearFounded;
+
+  if (typeof doc.yearCreated === "string" && !isNaN(Number(doc.yearCreated)))
+    return Number(doc.yearCreated);
+
+  if (typeof doc.yearCreated === "number" && !isNaN(doc.yearCreated))
+    return doc.yearCreated;
+
+  if (typeof doc.yearsFounded === "string" && !isNaN(Number(doc.yearsFounded)))
+    return Number(doc.yearsFounded);
+
+  return MIN_YEAR;
+};
+
 const transformBrands = async () => {
   await connectDB();
 
@@ -44,6 +60,7 @@ const transformBrands = async () => {
     updatedFields.brandName = getBrandName(doc);
     updatedFields.headquarters = getHeadquarters(doc);
     updatedFields.numberOfLocations = getNumberOfLocations(doc);
+    updatedFields.yearFounded = getYearFounded(doc);
 
     try {
       const result = await Brand.updateOne(
