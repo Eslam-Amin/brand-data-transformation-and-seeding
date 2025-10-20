@@ -20,6 +20,10 @@ const transformBrands = async () => {
         updatedFields.brandName = doc.brand;
     }
 
+    if (!doc.headquarters && doc.hqAddress)
+      updatedFields.headquarters = doc.hqAddress;
+    else updatedFields.headquarters = doc.headquarters;
+
     try {
       const result = await Brand.updateOne(
         { _id: doc._id },
