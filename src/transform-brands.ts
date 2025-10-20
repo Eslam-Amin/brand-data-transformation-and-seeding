@@ -18,6 +18,11 @@ const getBrandName = (doc: any): string | void => {
     return doc.brand;
 };
 
+const getHeadquarters = (doc: any): string | void => {
+  if (doc.headquarters) return doc.headquarters;
+  if (doc.hqAddress) return doc.hqAddress;
+};
+
 const transformBrands = async () => {
   await connectDB();
 
@@ -30,9 +35,7 @@ const transformBrands = async () => {
 
     updatedFields.brandName = getBrandName(doc);
 
-    if (!doc.headquarters && doc.hqAddress)
-      updatedFields.headquarters = doc.hqAddress;
-    else updatedFields.headquarters = doc.headquarters;
+    updatedFields.headquarters = getHeadquarters(doc);
 
     let locations = doc.numberOfLocations;
     if (typeof locations !== "number" || isNaN(locations)) {
