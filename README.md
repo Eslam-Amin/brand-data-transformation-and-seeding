@@ -82,13 +82,28 @@ The Brand model includes the following fields:
 ## Project Structure
 
 ```
-src/
-├── db.ts                 # Database connection configuration
-├── models/
-│   └── brands-schema.ts  # Mongoose brand schema definition
-├── transform-brands.ts          # Data transformation script
-└── seed-brands.ts       # Data seeding script
+├── brands.json           # Sample brand data in JSON format
+├── seeded-brands.xlsx    # Generated Excel file with seeded data
+├── src/
+│   ├── db.ts             # Database connection configuration
+│   ├── models/
+│   │   └── brands-schema.ts  # Mongoose brand schema definition
+│   ├── transform-brands.ts   # Data transformation script
+│   └── seed-brands.ts        # Data seeding script
+├── package.json          # Project dependencies and scripts
+├── tsconfig.json         # TypeScript configuration
+├── .gitignore           # Git ignore rules
+└── README.md            # Project documentation
 ```
+
+### File Descriptions
+
+- **`brands.json`**: Contains sample brand data in JSON format that can be imported into the database
+- **`seeded-brands.xlsx`**: Excel file generated after running the seeding script, documenting the fake data created
+- **`src/db.ts`**: MongoDB connection configuration and setup
+- **`src/models/brands-schema.ts`**: Mongoose schema definition for the Brand model
+- **`src/transform-brands.ts`**: Script to transform existing brand data to match the standardized schema
+- **`src/seed-brands.ts`**: Script to generate and insert fake brand data using Faker.js
 
 ## Dependencies
 
